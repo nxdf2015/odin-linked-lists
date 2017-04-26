@@ -10,6 +10,11 @@ class LinkedList
     @size = 0
   end
 
+  def  valid index
+    raise IndexError  if  not (0...size).include? index
+  end
+  
+
   def append(value)
     node  = Node.create(value)
     if @size == 0
@@ -34,7 +39,7 @@ class LinkedList
   end
 
   def at_node(index)
-    raise IndexError  if index >= size
+    valid(index)
     node = @head
     (index).times{ node = node.next }
     node
@@ -63,8 +68,10 @@ class LinkedList
   node.nil? ? nil : i
 end
 
+
+
 def insert_at(index,value)
-  raise IndexError  if index >= size
+  valid(index)
   if index >= 1
     node = at_node(index - 1 )
     new_node = Node.create(value,node.next)
@@ -72,12 +79,12 @@ def insert_at(index,value)
   else
     prepend(value)
   end
-
+ @size+=1
 end
 
 
 def remove_at(index)
-  raise IndexError  if index >= size
+  valid( index)
   before = at_node(index)
   if index ==  size - 1
     @tail = before
@@ -88,6 +95,7 @@ def remove_at(index)
     after = before.next.next
     before.next = after
   end
+  @size-=1
 end
 
 

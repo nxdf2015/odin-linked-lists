@@ -1,8 +1,7 @@
 
 
 class LinkedList
-  attr_accessor :head, :tail
-  attr_reader :size
+  attr_reader :size,:head, :tail
 
   def initialize
     @head = nil
@@ -13,7 +12,7 @@ class LinkedList
   def  valid index
     raise IndexError  if  not (0...size).include? index
   end
-  
+
 
   def append(value)
     node  = Node.create(value)
@@ -36,6 +35,12 @@ class LinkedList
         @head = node
     end
      @size+=1
+  end
+
+  def pop
+    node = at_node(size-2)
+    node.next = nil
+    @tail = node
   end
 
   def at_node(index)
@@ -133,3 +138,11 @@ end
     %Q[(#{@value})->]
   end
 end
+
+
+
+
+l = LinkedList.new
+(1..5).each do |i| l.append(i) end
+
+puts l
